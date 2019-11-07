@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Stephanie Amo
+//Project 5
+
 namespace cis237_assignment5
 {
     class Program
