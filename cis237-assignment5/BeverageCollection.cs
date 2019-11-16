@@ -4,10 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Stephanie Amo
+//Project 5
+
 namespace cis237_assignment5
 {
     class BeverageCollection
     {
+        //Make a new instance of the CarContext
+        BeverageContext beverageContext = new BeverageContext();
+
+
         // Private Variables
         private Beverage[] beverages;
         private int beverageLength;
@@ -29,7 +36,7 @@ namespace cis237_assignment5
         )
         {
             // Add a new Beverage to the collection. Increase the Length variable.
-            beverages[beverageLength] = new Beverage(id, name, pack, price, active);
+            //beverages[beverageLength] = new Beverage(id, name, pack, price, active);
             beverageLength++;
         }
 
@@ -40,12 +47,13 @@ namespace cis237_assignment5
             string returnString = "";
 
             // Loop through all of the beverages
-            foreach (Beverage beverage in beverages)
+            foreach (Beverage beverage in beverageContext.Beverages)
             {
                 // If the current beverage is not null, concat it to the return string
                 if (beverage != null)
                 {
-                    returnString += beverage.ToString() + Environment.NewLine;
+                    returnString += $"{beverage.id} {beverage.name} {beverage.pack} {beverage.price} {beverage.active}" 
+                        +Environment.NewLine;
                 }
             }
             // Return the return string
@@ -55,24 +63,16 @@ namespace cis237_assignment5
         // Find an item by it's Id
         public string FindById(string id)
         {
-            // Declare return string for the possible found item
             string returnString = null;
 
-            // For each Beverage in beverages
-            foreach (Beverage beverage in beverages)
+            Beverage foundBeverage = beverageContext.Beverages.Find(id);
+            if (foundBeverage != null)
             {
-                // If the beverage is not null
-                if (beverage != null)
-                {
-                    // If the beverage Id is the same as the search Id
-                    if (beverage.Id == id)
-                    {
-                        // Set the return string to the result
-                        // of the beverage's ToString method.
-                        returnString = beverage.ToString();
-                    }
-                }
+                returnString = $"{foundBeverage.id} {foundBeverage.name} {foundBeverage.pack}" +
+                  $"{foundBeverage.price} {foundBeverage.active}";
             }
+
+
             // Return the returnString
             return returnString;
         }

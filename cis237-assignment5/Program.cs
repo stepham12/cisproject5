@@ -16,22 +16,16 @@ namespace cis237_assignment5
             // Set Console Window Size
             Console.BufferHeight = Int16.MaxValue - 1;
             Console.WindowHeight = 40;
-            Console.WindowWidth = 120;
+            Console.WindowWidth = 140;
 
             // Set a constant for the size of the collection
             const int beverageCollectionSize = 4000;
-
-            // Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/beverage_list.csv";
 
             // Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
             // Create an instance of the BeverageCollection class
             BeverageCollection beverageCollection = new BeverageCollection(beverageCollectionSize);
-
-            // Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
 
             // Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -41,26 +35,11 @@ namespace cis237_assignment5
             int choice = userInterface.DisplayMenuAndGetResponse();
 
             // While the choice is not exit program
-            while (choice != 5)
+            while (choice != 6)
             {
                 switch (choice)
                 {
                     case 1:
-                        // Load the CSV File
-                        bool success = csvProcessor.ImportCSV(beverageCollection, pathToCSVFile);
-                        if (success)
-                        {
-                            // Display Success Message
-                            userInterface.DisplayImportSuccess();
-                        }
-                        else
-                        {
-                            // Display Fail Message
-                            userInterface.DisplayImportError();
-                        }
-                        break;
-
-                    case 2:
                         // Print Entire List Of Items
                         string allItemsString = beverageCollection.ToString();
                         if (!String.IsNullOrWhiteSpace(allItemsString))
@@ -75,7 +54,7 @@ namespace cis237_assignment5
                         }
                         break;
 
-                    case 3:
+                    case 2:
                         // Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
                         string itemInformation = beverageCollection.FindById(searchQuery);
@@ -89,7 +68,7 @@ namespace cis237_assignment5
                         }
                         break;
 
-                    case 4:
+                    case 3:
                         // Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
                         if (beverageCollection.FindById(newItemInformation[0]) == null)
@@ -107,6 +86,12 @@ namespace cis237_assignment5
                         {
                             userInterface.DisplayItemAlreadyExistsError();
                         }
+                        break;
+                    case 4:
+                        //Update an existing beverage
+                        break;
+                    case 5:
+                        //Delete an existing beverage
                         break;
                 }
 
