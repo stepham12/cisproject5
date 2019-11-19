@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 //Stephanie Amo
 //Project 5
+//Due: 11/19/2019
 
 namespace cis237_assignment5
 {
@@ -60,7 +61,7 @@ namespace cis237_assignment5
         public string GetSearchQuery()
         {
             Console.WriteLine();
-            Console.WriteLine("What would you like to search for?");
+            Console.WriteLine("Please enter the beverage id");
             Console.Write("> ");
             return Console.ReadLine();
         }
@@ -77,22 +78,15 @@ namespace cis237_assignment5
             return new string[] { id, name, pack, price, active };
         }
 
-        // Display Import Success
-        public void DisplayImportSuccess()
+        // Get Updated Item Information From The User.
+        public string[] GetUpdatedItemInformation()
         {
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Wine List Has Been Imported Successfully");
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
+            string name = this.GetStringField("Name");
+            string pack = this.GetStringField("Pack");
+            string price = this.GetDecimalField("Price");
+            string active = this.GetBoolField("Active");
 
-        // Display Import Error
-        public void DisplayImportError()
-        {
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("There was an error importing the CSV");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            return new string[] { name, pack, price, active };
         }
 
         // Display All Items
@@ -145,6 +139,24 @@ namespace cis237_assignment5
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("The Item was successfully added");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        // Display Delete Wine Item Success
+        public void DisplayDeleteWineItemSuccess()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("The Item was successfully deleted");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        // Display Delete Wine Item Success
+        public void DisplayUpdateWineItemSuccess()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("The Item was successfully updated");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
@@ -230,7 +242,7 @@ namespace cis237_assignment5
         // Get a valid string field from the console
         private string GetStringField(string fieldName)
         {
-            Console.WriteLine("What is the new Item's {0}", fieldName);
+            Console.WriteLine("What is the Item's {0}", fieldName);
             string value = null;
             bool valid = false;
             while (!valid)
@@ -256,7 +268,7 @@ namespace cis237_assignment5
         // Get a valid decimal field from the console
         private string GetDecimalField(string fieldName)
         {
-            Console.WriteLine("What is the new Item's {0}", fieldName);
+            Console.WriteLine("What is the Item's {0}", fieldName);
             decimal value = 0;
             bool valid = false;
             while (!valid)

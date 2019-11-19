@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 //Stephanie Amo
 //Project 5
+//Due: 11/19/2019
 
 namespace cis237_assignment5
 {
@@ -16,16 +17,13 @@ namespace cis237_assignment5
             // Set Console Window Size
             Console.BufferHeight = Int16.MaxValue - 1;
             Console.WindowHeight = 40;
-            Console.WindowWidth = 140;
-
-            // Set a constant for the size of the collection
-            const int beverageCollectionSize = 4000;
+            Console.WindowWidth = 145;
 
             // Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
             // Create an instance of the BeverageCollection class
-            BeverageCollection beverageCollection = new BeverageCollection(beverageCollectionSize);
+            BeverageCollection beverageCollection = new BeverageCollection();
 
             // Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -71,6 +69,7 @@ namespace cis237_assignment5
                     case 3:
                         // Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
+                        //Add New Item if the id does not already exist
                         if (beverageCollection.FindById(newItemInformation[0]) == null)
                         {
                             beverageCollection.AddNewItem(
@@ -84,14 +83,47 @@ namespace cis237_assignment5
                         }
                         else
                         {
+                            //Display error message if id already exists
                             userInterface.DisplayItemAlreadyExistsError();
                         }
                         break;
                     case 4:
                         //Update an existing beverage
+                        string idToUpdate = userInterface.GetSearchQuery();
+                        //Check if inputted id exists
+                        if (beverageCollection.FindById(idToUpdate) != null)
+                        {
+                            //Obtain updated information from user
+                            string[] updatedItemInformation = userInterface.GetUpdatedItemInformation();
+                            beverageCollection.UpdateItem(
+                                idToUpdate,
+                                updatedItemInformation[0],
+                                updatedItemInformation[1],
+                                decimal.Parse(updatedItemInformation[2]),
+                                (updatedItemInformation[3] == "True")
+                            );
+                            userInterface.DisplayUpdateWineItemSuccess();
+                        }
+                        else
+                        {
+                            //Display error message if id not found
+                            userInterface.DisplayItemFoundError();
+                        }
                         break;
                     case 5:
                         //Delete an existing beverage
+                        string idToDelete = userInterface.GetSearchQuery();
+                        //If id exits, then delete item and display success message
+                        if (beverageCollection.FindById(idToDelete) != null)
+                        {
+                            beverageCollection.DeleteItem(idToDelete);
+                            userInterface.DisplayDeleteWineItemSuccess();
+                        }
+                        else
+                        {
+                            //Display error message if id not found
+                            userInterface.DisplayItemFoundError();
+                        }
                         break;
                 }
 

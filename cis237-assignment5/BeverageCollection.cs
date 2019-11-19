@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 //Stephanie Amo
 //Project 5
+//Due: 11/19/2019
 
 namespace cis237_assignment5
 {
@@ -13,18 +14,6 @@ namespace cis237_assignment5
     {
         //Make a new instance of the CarContext
         BeverageContext beverageContext = new BeverageContext();
-
-
-        // Private Variables
-        private Beverage[] beverages;
-        private int beverageLength;
-
-        // Constructor. Must pass the size of the collection.
-        public BeverageCollection(int size)
-        {
-            this.beverages = new Beverage[size];
-            this.beverageLength = 0;
-        }
 
         // Add a new item to the collection
         public void AddNewItem(
@@ -35,9 +24,21 @@ namespace cis237_assignment5
             bool active
         )
         {
-            // Add a new Beverage to the collection. Increase the Length variable.
-            //beverages[beverageLength] = new Beverage(id, name, pack, price, active);
-            beverageLength++;
+            //Make an instance of a new beverage
+            Beverage newBeverageToAdd = new Beverage();
+
+            //Assign properties to the parts of the beverage
+            newBeverageToAdd.id = id;
+            newBeverageToAdd.name = name;
+            newBeverageToAdd.pack = pack;
+            newBeverageToAdd.price = price;
+            newBeverageToAdd.active = active;
+
+            //Add the new beverage to the Beverages Collection
+            beverageContext.Beverages.Add(newBeverageToAdd);
+
+            // Save the changes to the database.
+            beverageContext.SaveChanges();
         }
 
         // ToString override method to convert the collection to a string
@@ -60,7 +61,7 @@ namespace cis237_assignment5
             return returnString;
         }
 
-        // Find an item by it's Id
+        // Find an item by its Id
         public string FindById(string id)
         {
             string returnString = null;
@@ -75,6 +76,42 @@ namespace cis237_assignment5
 
             // Return the returnString
             return returnString;
+        }
+
+        // Update an item in the collection
+        public void UpdateItem(
+            string id,
+            string name,
+            string pack,
+            decimal price,
+            bool active
+        )
+        {
+            ///Get a car out of the database that we would like to update
+            Beverage beverageToUpdate = beverageContext.Beverages.Find(id);
+
+            //Update some of the properties of the car we found.
+            //dont need to update all of them if we don't want to.
+            beverageToUpdate.name = name;
+            beverageToUpdate.pack = pack;
+            beverageToUpdate.price = price;
+            beverageToUpdate.active = active;
+
+            //Save the changes to the database. 
+            beverageContext.SaveChanges();
+        }
+
+        //Delete an item using its Id
+        public void DeleteItem(string id)
+        {
+            // Get a beverage out of the database that we want to delete
+            Beverage beverageToDelete = beverageContext.Beverages.Find(id);
+
+            //Remove the beverage from the Beverages Collection
+            beverageContext.Beverages.Remove(beverageToDelete);
+
+            //Save the changes to database
+            beverageContext.SaveChanges();
         }
     }
 }
