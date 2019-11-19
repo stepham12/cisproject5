@@ -12,7 +12,7 @@ namespace cis237_assignment5
 {
     class BeverageCollection
     {
-        //Make a new instance of the CarContext
+        //Make a new instance of the BeverageContext
         BeverageContext beverageContext = new BeverageContext();
 
         // Add a new item to the collection
@@ -69,7 +69,7 @@ namespace cis237_assignment5
             Beverage foundBeverage = beverageContext.Beverages.Find(id);
             if (foundBeverage != null)
             {
-                returnString = $"{foundBeverage.id} {foundBeverage.name} {foundBeverage.pack}" +
+                returnString = $"{foundBeverage.id} {foundBeverage.name} {foundBeverage.pack} " +
                   $"{foundBeverage.price} {foundBeverage.active}";
             }
 
@@ -87,11 +87,10 @@ namespace cis237_assignment5
             bool active
         )
         {
-            ///Get a car out of the database that we would like to update
+            ///Get a beverage out of the database that we would like to update
             Beverage beverageToUpdate = beverageContext.Beverages.Find(id);
 
-            //Update some of the properties of the car we found.
-            //dont need to update all of them if we don't want to.
+            //Update the properties of the beverage we found.
             beverageToUpdate.name = name;
             beverageToUpdate.pack = pack;
             beverageToUpdate.price = price;

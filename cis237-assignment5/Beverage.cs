@@ -1,3 +1,7 @@
+//Stephanie Amo
+//Project 5
+//Due: 11/19/2019
+
 namespace cis237_assignment5
 {
     using System;

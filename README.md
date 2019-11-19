@@ -2,7 +2,7 @@
 
 ## Due: 11-19-2019
 
-## Author
+## Author: Stephanie Amo
 
 
 
@@ -84,7 +84,8 @@ Solution Requirements:
 | **Total**                               | **100**|
 
 ## Outside Resources Used
-
+N/A
 
 
 ## Known Problems, Issues, And/Or Errors in the Program
+When printing list, formatting is off for newly added items. 
